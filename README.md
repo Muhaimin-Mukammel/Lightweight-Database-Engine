@@ -11,7 +11,7 @@ This project is a custom database engine designed to support structured data sto
 
 ## CORE IDEA
 - Data is loaded from file into RAM at startup
-- All operations happen in memory (fast CRUD + queries)
+- All operations happen in memory (fast crud + queries)
 - Changes are tracked (dirty state)
 - Data is written back to file only on explicit save/commit
 
@@ -24,7 +24,7 @@ This project is a custom database engine designed to support structured data sto
     - Rows (records)
     - Metadata (PK, FK rules, indexes)
 
-### User-facing operations (CRUD only)
+### User-facing operations (crud only)
 - Create
 - Read
 - Update
@@ -89,7 +89,7 @@ Implemented using:
 
 ### V1 — CORE DATABASE (FOUNDATION)
 - Table system (columns + rows)
-- CRUD operations
+- crud operations
 - JSON load/save
 - Basic in-memory storage
 - Dirty tracking + save confirmation layer
@@ -123,5 +123,5 @@ A lightweight relational database engine capable of:
 
 - Handling structured relational data
 - Supporting 100k+ records efficiently
-- Providing CRUD + query + join functionality
+- Providing crud + query + join functionality
 - Using memory-first execution with file persistence

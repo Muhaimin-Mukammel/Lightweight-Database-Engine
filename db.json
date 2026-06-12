@@ -1,0 +1,71 @@
+{
+  "tables" : {
+    "product" : {
+      "name" : "product",
+      "columns" : [ {
+        "name" : "id",
+        "type" : "INT",
+        "primaryKey" : true
+      }, {
+        "name" : "name",
+        "type" : "STRING",
+        "primaryKey" : false
+      }, {
+        "name" : "price",
+        "type" : "INT",
+        "primaryKey" : false
+      } ],
+      "rows" : {
+        "1" : {
+          "values" : {
+            "price" : 50000,
+            "name" : "Laptop",
+            "id" : 1
+          }
+        },
+        "2" : {
+          "values" : {
+            "price" : 75000,
+            "name" : "Iphone",
+            "id" : 2
+          }
+        }
+      }
+    },
+    "user" : {
+      "name" : "user",
+      "columns" : [ {
+        "name" : "id",
+        "type" : "INT",
+        "primaryKey" : true
+      }, {
+        "name" : "name",
+        "type" : "STRING",
+        "primaryKey" : false
+      }, {
+        "name" : "age",
+        "type" : "INT",
+        "primaryKey" : false
+      }, {
+        "name" : "occupation",
+        "type" : "STRING",
+        "primaryKey" : false
+      }, {
+        "name" : "gender",
+        "type" : "STRING",
+        "primaryKey" : false
+      } ],
+      "rows" : {
+        "1" : {
+          "values" : {
+            "occupation" : "Student",
+            "gender" : "male",
+            "name" : "Tahsan",
+            "id" : 1,
+            "age" : 21
+          }
+        }
+      }
+    }
+  }
+}
