@@ -75,23 +75,18 @@ public class combiner {
                 switch (key) {
                     case 1:
                         ar.addRow(table);
-                        try {
-                            db.save();
-                        } catch (IOException e) {
-                            System.out.println("Database cannot be saved..");
-                        }
+                        db.save();
                         break;
+
                     case 2:
                         ace.addColumn(table);
-                        try {
-                            db.save();
-                        } catch (IOException e) {
-                            System.out.println("Database cannot be saved..");
-                        }
+                        db.save();
                         break;
+
                     case 3:
                         System.out.println("Exiting table...");
                         return;
+
                     default:
                         System.out.println("Invalid input");
                 }
@@ -119,11 +114,7 @@ public class combiner {
                 switch (key) {
                     case 1:
                         table = ct.createTable();
-                    try{
                         db.save();
-                    } catch (IOException e) {
-                        System.out.println("Database cannot be saved..");
-                    }
                         break;
 
                     case 2:
@@ -138,11 +129,7 @@ public class combiner {
                 if(table != null){
                     System.out.println("Table Created..");
                     ac.addPk(table);
-                    try {
-                        db.save();
-                    } catch (IOException e) {
-                        System.out.println("Database cannot be saved..");
-                    }
+                    db.save();
 
                     System.out.print("Add columns now? (y/n): ");
                     String ans = sc.nextLine();
@@ -153,13 +140,8 @@ public class combiner {
                         sc.nextLine();
 
                         ac.addColumn(table, max);
-                        try {
-                            db.save();
-                        } catch (IOException e) {
-                            System.out.println("Database cannot be saved..");
-                        }
+                        db.save();
                     }
-
                     break;
                 } else {
                     System.out.println("Table creation failed");

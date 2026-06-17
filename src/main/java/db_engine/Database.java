@@ -36,9 +36,13 @@ public class Database {
         }
     }
 
-    public void save() throws IOException {
-        mapper.writerWithDefaultPrettyPrinter()
-                .writeValue(file, this);
+    public void save(){
+        try{
+            mapper.writerWithDefaultPrettyPrinter()
+                    .writeValue(file, this);
+        } catch (IOException e) {
+            System.out.println("Database cannot be saved");
+        }
     }
 
     public Map<String, Table> getTables() {
