@@ -1,8 +1,13 @@
 import Combiner.combiner;
+import db_engine.Database;
+
+import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) throws Exception {
-        combiner combiner1 = new combiner();
+        Database database = new Database();
+        Scanner scanner = new Scanner(System.in);
+        combiner combiner1 = new combiner(database, scanner);
         combiner1.integrate();
     }
 }

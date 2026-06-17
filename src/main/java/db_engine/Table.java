@@ -30,7 +30,7 @@ public class Table {
             if(value == null){
                 throw new RuntimeException("Missing column : " + col.getName());
             }
-            switch (col.getType()){
+            switch (col.getType().toUpperCase()){
                 case "INT":
                     if(!(value instanceof Integer)){
                         throw new RuntimeException("Type Mismatch : " + col.getName());
