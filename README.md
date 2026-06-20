@@ -1,127 +1,153 @@
-# PROJECT: Lightweight In-Memory + File-Based Database Engine
+# Lightweight Database Engine (V3)
 
-## OVERVIEW
-This project is a custom database engine designed to support structured data storage, relational modeling, and efficient querying for ~100k+ records. The system uses a hybrid architecture:
+A **custom file-based paged database engine** written in Java. This project implements its own binary storage format using fixed-size pages, primary key hashing, and a clean interactive CLI.
 
-- In-memory database for fast operations
-- File-based storage (JSON) for persistence
-- Controlled save/commit mechanism
+**Current Version:** V3 (Completed) — Binary paging system + Hash indexing + Functional CRUD via Dashboard.
 
 ---
 
-## CORE IDEA
-- Data is loaded from file into RAM at startup
-- All operations happen in memory (fast crud + queries)
-- Changes are tracked (dirty state)
-- Data is written back to file only on explicit save/commit
+## Features
+
+- **Custom Binary File Format** — Uses `RandomAccessFile` with fixed 128-byte slots
+- **SuperBlock** — Professional database file header with metadata
+- **HashIndex** — Fast in-memory primary key lookups (`O(1)`) with `Location` (page + slot)
+- **Page & Slot Management** — Efficient space allocation and reuse
+- **CRUD Operations** — Create tables, Insert, Select, Delete (Update coming soon)
+- **Interactive Dashboard** — User-friendly command-line interface
+- **Catalog Management** — Persistent table schemas and metadata
+- **Hybrid Design** — Persistent binary storage + in-memory indexing
 
 ---
 
-## BASIC DATA MODEL
-- Database
-  - Tables
-    - Columns (schema definition)
-    - Rows (records)
-    - Metadata (PK, FK rules, indexes)
+## Architecture Highlights
 
-### User-facing operations (crud only)
-- Create
-- Read
-- Update
-- Delete
+The project follows a clean layered architecture:
 
----
+```
+Dashboard → CrudService → StorageEngine + HashIndex → PageManager + SuperBlock
+```
 
-## IN-MEMORY DESIGN
-- Tables stored in RAM
-- Rows stored as objects/maps
-- Primary key lookup optimized using HashMap
-- Foreign keys validated at runtime
-- Dirty tracking system for pending changes
+**Components I'm most proud of:**
+- **SuperBlock** — Clean, fixed-layout header
+- **HashIndex** — Simple yet powerful indexing
+- **Dashboard + CRUD** — Excellent abstraction that hides all the low-level complexity
 
 ---
 
-## PERSISTENCE LAYER
-- JSON file acts as the source of truth for storage
-- On startup: JSON → RAM reconstruction
-- On save/commit: RAM → JSON serialization
-- Optional confirmation layer before saving changes
+## How to Build & Run
+
+### Prerequisites
+- Java 25+
+- Maven
+
+### Build
+```bash
+mvn clean compile
+```
+
+### Run
+```bash
+mvn exec:java -Dexec.mainClass="Main"
+```
+
+Or manually:
+```bash
+java -cp target/classes Main
+```
+
+The database file `data.db` will be created in the project root.
 
 ---
 
-## QUERY MODEL (FUTURE CORE)
-- Filtering (WHERE conditions)
-- Basic projections (select fields)
-- Sorting (optional stage)
-- Relationship traversal (FK-based access)
-- ResultSet abstraction
+## CLI Usage (Dashboard)
+
+### Global Mode Commands
+- `CREATE TABLE <name>` — Launch table creation wizard
+- `LIST TABLES` — Show all tables
+- `USE <table>` — Enter table mode
+- `EXIT` — Quit the program
+
+### Table Mode Commands
+- `INSERT` — Add a new record (guided input)
+- `SELECT` — Display all records in the table
+- `DELETE <pk_value>` — Delete record by primary key
+- `BACK` — Return to global mode
+- `EXIT`
 
 ---
 
-## RELATIONSHIP MODEL
-Supports relational structure like:
+## Project Structure
 
-User
-├─ Orders
-│ ├─ Items
-│ ├─ Payments
-│ └─ Shipments
-├─ Friends
-├─ Messages
-└─ Notifications
-
-
-Implemented using:
-- Foreign keys (FK)
-- Reference validation
-- Join-like operations (initially simple nested-loop joins)
-
----
-
-## PERFORMANCE DESIGN
-- Primary key lookup → HashMap (O(1))
-- Relationship traversal → indexed lookups (later optimization)
-- Target scale → ~100k records per database
-
----
-
-## VERSION ROADMAP
-
-### V1 — CORE DATABASE (FOUNDATION)
-- Table system (columns + rows)
-- crud operations
-- JSON load/save
-- Basic in-memory storage
-- Dirty tracking + save confirmation layer
+```
+src/main/java/
+├── Main.java
+├── DashBoard/
+│   └── Dashboard.java
+├── CRUD/
+│   └── CrudService.java
+└── db_engine/
+    ├── SuperBlock.java
+    ├── PageManager.java
+    ├── StorageEngine.java
+    ├── HashIndex.java
+    ├── Page.java
+    ├── Slot.java
+    ├── RowSerializer.java
+    ├── RowDeserializer.java
+    ├── TableMeta.java
+    ├── Column.java
+    ├── CatalogManager.java
+    ├── Constants.java
+    └── ...
+```
 
 ---
 
-### V2 — RELATIONAL LAYER
-- Primary Key enforcement
-- Foreign Key validation
-- Basic joins (nested-loop join initially)
-- Multi-table relationships
+## Version Roadmap
+
+### Completed
+- **V1** — Basic model + persistence
+- **V2** — Relational concepts
+- **V3** — Binary paged storage + Hash indexing + CLI (Current)
+
+### Upcoming (V4)
+- B-Tree indexing for range queries
+- `UPDATE` operation
+- Basic `WHERE` filtering
+- Free list for better space management
+- Improved durability and error handling
 
 ---
 
-### V3 — INDEXING LAYER
-- HashMap-based indexes for fast lookup
-- Query optimization for primary key access
-- Faster filtering on indexed fields
+## Current Limitations (V3)
+
+- Fixed slot size (128 bytes)
+- No `UPDATE` yet
+- Limited data type support
+- Full scans for non-primary key operations
+- Index is rebuilt on every startup
+- No transaction support or concurrency
 
 ---
 
-### V4 — ADVANCED STRUCTURES
-- B-Tree indexing (primary focus)
-- Range queries (>, <, BETWEEN)
-- Better sorting and scanning performance
+## Learning Objectives
+
+This project was built to deeply understand how real databases work under the hood — file formats, paging, indexing, and clean abstraction layers.
+
+**Key Achievement**: All the low-level complexity is successfully hidden behind a simple and pleasant user interface.
 
 ---
 
-## FINAL GOAL
-A lightweight relational database engine capable of:
+## Future Enhancements
 
-- Handling structured relational data
-- Supporting 100k+ records efficiently
-- Providing crud + query + join functionality
-- Using memory-first execution with file persistence
+- SQL-like query parser
+- Secondary indexes
+- Variable-length records + overflow pages
+- Basic transaction support
+- Import/Export utilities
+
+---
+
+**Built with ❤️ for learning systems and database internals.**
+
+Feedback and suggestions are always welcome!
