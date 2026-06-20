@@ -41,7 +41,6 @@ public class HashIndex {
         map.clear();
     }
 
-    // 🔥 THIS FIXES YOUR ERROR
     public Map<String, Location> raw() {
         return map;
     }

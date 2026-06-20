@@ -6,7 +6,8 @@ public class Column {
     private String type;
     private boolean primaryKey;
 
-    public Column() {}
+    public Column() {
+    }
 
     public Column(String name, String type, boolean primaryKey) {
         this.name = name;

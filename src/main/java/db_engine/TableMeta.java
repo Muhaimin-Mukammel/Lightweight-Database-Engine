@@ -1,6 +1,7 @@
 package db_engine;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.List;
 
 public class TableMeta {
@@ -12,7 +13,8 @@ public class TableMeta {
     @JsonIgnore
     private HashIndex index = new HashIndex();
 
-    public TableMeta() {}
+    public TableMeta() {
+    }
 
     public TableMeta(String name, List<Column> columns, String primaryKey) {
         this.name = name;
@@ -33,7 +35,6 @@ public class TableMeta {
         return primaryKey;
     }
 
-    // 🔥 THIS FIXES "cannot resolve getIndex"
     public HashIndex getIndex() {
         return index;
     }
