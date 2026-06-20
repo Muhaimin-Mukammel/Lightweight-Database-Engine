@@ -1,13 +1,17 @@
-import Combiner.combiner;
-import db_engine.Database;
-
-import java.util.Scanner;
+import CRUD.CrudService;
+import DashBoard.Dashboard;
+import db_engine.StorageEngine;
 
 public class Main {
+
     public static void main(String[] args) throws Exception {
-        Database database = new Database();
-        Scanner scanner = new Scanner(System.in);
-        combiner combiner1 = new combiner(database, scanner);
-        combiner1.integrate();
+
+        StorageEngine engine = new StorageEngine("data.db");
+
+        CrudService crud = new CrudService(engine);
+
+        Dashboard dashboard = new Dashboard(crud);
+
+        dashboard.run();
     }
 }
