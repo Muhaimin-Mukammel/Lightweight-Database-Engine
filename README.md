@@ -198,6 +198,3 @@ This is a from-scratch educational implementation, so it cuts corners that a rea
 - Secondary indexes beyond the primary key
 - Write-ahead logging / crash recovery
 
-## License
-
-No license file is currently included in the repository — add one (MIT/Apache-2.0 are common choices for projects like this) if you intend for others to reuse the code.
