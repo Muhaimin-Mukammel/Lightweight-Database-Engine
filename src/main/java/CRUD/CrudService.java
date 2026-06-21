@@ -233,10 +233,7 @@ public class CrudService {
         return table.getIndex().raw().size();
     }
 
-    /**
-     * Simple full-scan filter: returns every row where the given column equals the given value.
-     * No query planner here -- it's a linear scan over the in-memory index, same cost as SELECT *.
-     */
+
     public List<Row> filter(String tableName, String columnName, String value) throws Exception {
         TableMeta table = requireTable(tableName);
 
