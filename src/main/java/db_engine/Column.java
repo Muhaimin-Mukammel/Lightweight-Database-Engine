@@ -1,6 +1,11 @@
 package db_engine;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class Column {
+
+    public static final List<String> SUPPORTED_TYPES = Arrays.asList("INT", "STRING");
 
     private String name;
     private String type;
@@ -37,5 +42,9 @@ public class Column {
 
     public void setPrimaryKey(boolean primaryKey) {
         this.primaryKey = primaryKey;
+    }
+
+    public static boolean isSupportedType(String type) {
+        return type != null && SUPPORTED_TYPES.contains(type.toUpperCase());
     }
 }

@@ -60,6 +60,15 @@ public class CatalogManager {
         save();
     }
 
+    public void dropTable(String name) throws IOException {
+        tables.remove(name);
+        save();
+    }
+
+    public boolean tableExists(String name) {
+        return tables.containsKey(name);
+    }
+
     public Map<String, TableMeta> getTables() {
         return tables;
     }

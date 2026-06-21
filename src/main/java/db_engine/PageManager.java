@@ -81,6 +81,20 @@ public class PageManager {
         return result;
     }
 
+    /**
+     * Overwrites the bytes at an existing slot's offset in place. Only valid when
+     * the new record is no larger than the slot's original reserved size -- the
+     * caller (CrudService.update) is responsible for checking that beforehand.
+     */
+    public void overwrite(Page page, int slotId, byte[] record) {
+        Slot slot = readSlot(page, slotId);
+        if (record.length > slot.getSize()) {
+            throw new IllegalArgumentException("Record does not fit in existing slot capacity");
+        }
+        System.arraycopy(record, 0, page.getData(), slot.getOffset(), record.length);
+        writeSlot(page, slotId, slot.getOffset(), record.length, false);
+    }
+
     public void delete(Page page, int slotId) {
         if (slotId < 0 || slotId >= page.getSlotCount()) {
             return;

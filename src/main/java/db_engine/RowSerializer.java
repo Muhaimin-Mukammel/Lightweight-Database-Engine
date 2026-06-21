@@ -17,9 +17,15 @@ public class RowSerializer {
 
             switch (col.getType().toUpperCase()) {
                 case "INT":
+                    if (val != null && !(val instanceof Integer)) {
+                        throw new IOException("Column '" + col.getName() + "' expects INT, got " + val.getClass().getSimpleName());
+                    }
                     out.writeInt(val == null ? 0 : (Integer) val);
                     break;
                 case "STRING":
+                    if (val != null && !(val instanceof String)) {
+                        throw new IOException("Column '" + col.getName() + "' expects STRING, got " + val.getClass().getSimpleName());
+                    }
                     String s = val == null ? "" : (String) val;
                     byte[] bytes = s.getBytes();
                     out.writeInt(bytes.length);
